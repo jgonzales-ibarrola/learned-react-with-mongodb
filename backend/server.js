@@ -2,12 +2,17 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const cors = require('cors');
+
 const workoutRoutes = require('./routes/workoutRoutes');
 
 const app = express();
 
 // Middleware
-app.use(express.json()) // able to request a body from client
+app.use(bodyParser.json({ limit: "30mb", extended: true }))
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
+app.use(cors());
 
 app.use((req, res, next) => {
 	console.log("Path: ", req.path);
